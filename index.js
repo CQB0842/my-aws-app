@@ -1,7 +1,7 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-  res.end('Hello from Node.js CI/CD 崔淇彬!');
+  res.end('Hello 崔淇彬。from Node.js CI/CD !');
 });
 
 server.listen(3000, () => {
