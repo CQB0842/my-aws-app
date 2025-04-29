@@ -1,0 +1,30 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches: 
+      - main  # 当推送到 main 分支时触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 使用 GitHub 提供的最新 Ubuntu 环境进行构建
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3  # 从 GitHub 拉取代码
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3  # 设置 Docker Buildx 环境
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2  # 登录 Docker Hub
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # 使用 GitHub Secrets 存储的 Docker Hub 用户名
+          password: ${{ secrets.DOCKER_PASSWORD }}  # 使用 GitHub Secrets 存储的 Docker Hub 密码或 token
+
+      - name: Build and push image
+        uses: docker/build-push-action@v5  # 使用 Docker Actions 进行构建并推送镜像
+        with:
+          context: .  # 当前目录作为 Docker 构建上下文
+          push: true  # 推送镜像
+          tags: cuiqibin/my-nginx:v1  # 替换为你自己的镜像名称和标签
