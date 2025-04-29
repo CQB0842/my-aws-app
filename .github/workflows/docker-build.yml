@@ -26,5 +26,6 @@ jobs:
         uses: docker/build-push-action@v5  # 使用 Docker Actions 进行构建并推送镜像
         with:
           context: .  # 当前目录作为 Docker 构建上下文
+          file: ./Dockerfile
           push: true  # 推送镜像
           tags: cuiqibin/my-nginx:v1  # 替换为你自己的镜像名称和标签
